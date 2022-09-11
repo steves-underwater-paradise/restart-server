@@ -22,12 +22,18 @@
   "license": "LGPLv2.1",
   "icon": "assets/restart-server/icon.png",
   "environment": "server",
-  "entrypoints": {},
+  "entrypoints": {
+    "server": [
+      "io.github.steveplays28.restartserver.RestartServer",
+      "io.github.steveplays28.restartserver.commands.RestartCommand"
+    ]
+  },
   "mixins": [
     "restart-server.mixins.json"
   ],
   "depends": {
     "fabricloader": ">=0.14.9",
-    "minecraft": "1.19.2"
+    "minecraft": "1.19.x",
+    "fabric": ">=0.61.0"
   }
 }
