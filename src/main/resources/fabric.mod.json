@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "id": "restart-server",
+  "version": "${version}",
+  "name": "Restart Server",
+  "description": "Adds a restart command to dedicated servers.",
+  "authors": [
+    "Steveplays28"
+  ],
+  "contact": {
+    "repo": "https://github.com/steveplays28/restart-server",
+    "sources": "https://github.com/Steveplays28/realisticsleep",
+    "issues": "https://github.com/Steveplays28/realisticsleep/issues"
+  },
+  "custom": {
+    "modmenu": {
+      "links": {
+        "modmenu.discord": "https://discord.gg/KbWxgGg"
+      }
+    }
+  },
+  "license": "LGPLv2.1",
+  "icon": "assets/restart-server/icon.png",
+  "environment": "server",
+  "entrypoints": {},
+  "mixins": [
+    "restart-server.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.14.9",
+    "minecraft": "1.19.2"
+  }
+}
