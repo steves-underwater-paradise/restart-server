@@ -12,10 +12,13 @@ import net.minecraft.server.command.ServerCommandSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.List;
+
 public class RestartServer implements DedicatedServerModInitializer {
 	public static final String MOD_ID = "restart-server";
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 	public static RestartServerConfig config;
+	public static final List<LiteralArgumentBuilder<ServerCommandSource>> COMMANDS = List.of(RestartCommand.register());
 
 	@Override
 	public void onInitializeServer() {
@@ -29,11 +32,10 @@ public class RestartServer implements DedicatedServerModInitializer {
 		ServerTickEvents.END_SERVER_TICK.register(new RestartScheduler()::tick);
 
 		// Register commands
-		CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> dispatcher.register(
-				LiteralArgumentBuilder.<ServerCommandSource>literal("backup")
-						.requires((ctx) -> ctx.hasPermissionLevel(4)
-						)
-						.then(RestartCommand.register())
-		));
+		CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
+			for (var command : COMMANDS) {
+				dispatcher.register(command);
+			}
+		});
 	}
 }

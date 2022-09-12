@@ -6,6 +6,6 @@ import me.shedaniel.autoconfig.annotation.Config;
 
 @Config(name = RestartServer.MOD_ID)
 public class RestartServerConfig implements ConfigData {
-	String restartFile = "restart-server.bat";
-
+	public String restartFile = "start-server.bat";
+	public String eta = "2 minutes";
 }

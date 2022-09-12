@@ -12,23 +12,12 @@
     "sources": "https://github.com/Steveplays28/realisticsleep",
     "issues": "https://github.com/Steveplays28/realisticsleep/issues"
   },
-  "custom": {
-    "modmenu": {
-      "links": {
-        "modmenu.discord": "https://discord.gg/KbWxgGg"
-      }
-    }
-  },
   "license": "LGPLv2.1",
   "icon": "assets/restart-server/icon.png",
   "environment": "server",
   "entrypoints": {
     "server": [
-      "io.github.steveplays28.restartserver.RestartServer",
-      "io.github.steveplays28.restartserver.commands.RestartCommand"
-    ],
-    "modmenu": [
-      "io.github.steveplays28.restartserver.config.RestartServerModMenuIntegration"
+      "io.github.steveplays28.restartserver.RestartServer"
     ]
   },
   "mixins": [

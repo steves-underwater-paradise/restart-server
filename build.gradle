@@ -14,7 +14,6 @@ repositories {
     // for more information about repositories.
 
     maven { url "https://maven.shedaniel.me/" }
-    maven { url "https://maven.terraformersmc.com/" }
 }
 
 dependencies {
@@ -28,11 +27,6 @@ dependencies {
 
     // Cloth Config
     modApi("me.shedaniel.cloth:cloth-config-fabric:${project.cloth_config_version}") {
-        exclude(group: "net.fabricmc.fabric-api")
-    }
-
-    // Mod Menu
-    modImplementation("com.terraformersmc:modmenu:${project.modmenu_version}") {
         exclude(group: "net.fabricmc.fabric-api")
     }
 }
