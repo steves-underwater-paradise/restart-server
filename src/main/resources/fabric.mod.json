@@ -26,6 +26,9 @@
     "server": [
       "io.github.steveplays28.restartserver.RestartServer",
       "io.github.steveplays28.restartserver.commands.RestartCommand"
+    ],
+    "modmenu": [
+      "io.github.steveplays28.restartserver.config.RestartServerModMenuIntegration"
     ]
   },
   "mixins": [
