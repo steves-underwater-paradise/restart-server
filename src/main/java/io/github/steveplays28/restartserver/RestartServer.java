@@ -7,6 +7,7 @@ import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
 import net.fabricmc.api.DedicatedServerModInitializer;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.minecraft.server.command.ServerCommandSource;
 import org.slf4j.Logger;
@@ -27,6 +28,13 @@ public class RestartServer implements DedicatedServerModInitializer {
 		// Register Auto Config
 		AutoConfig.register(RestartServerConfig.class, GsonConfigSerializer::new);
 		config = AutoConfig.getConfigHolder(RestartServerConfig.class).getConfig();
+
+		// Listen for when the server is reloading (i.e. /reload), and reload the config
+		ServerLifecycleEvents.START_DATA_PACK_RELOAD.register((s, m) -> {
+			LOGGER.info("[RestartServer] Reloading config!");
+			AutoConfig.getConfigHolder(RestartServerConfig.class).load();
+			config = AutoConfig.getConfigHolder(RestartServerConfig.class).getConfig();
+		});
 
 		// Register events
 		ServerTickEvents.END_SERVER_TICK.register(new RestartScheduler()::onTick);
