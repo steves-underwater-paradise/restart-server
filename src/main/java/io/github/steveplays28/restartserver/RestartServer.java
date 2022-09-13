@@ -29,7 +29,7 @@ public class RestartServer implements DedicatedServerModInitializer {
 		config = AutoConfig.getConfigHolder(RestartServerConfig.class).getConfig();
 
 		// Register events
-		ServerTickEvents.END_SERVER_TICK.register(new RestartScheduler()::tick);
+		ServerTickEvents.END_SERVER_TICK.register(new RestartScheduler()::onTick);
 
 		// Register commands
 		CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {

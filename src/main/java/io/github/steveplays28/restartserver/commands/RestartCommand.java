@@ -20,7 +20,7 @@ public class RestartCommand {
 		return CommandManager.literal(NAME).executes(ctx -> execute(ctx.getSource())).requires((ctx) -> ctx.hasPermissionLevel(PERMISSION_LEVEL));
 	}
 
-	private static int execute(ServerCommandSource source) {
+	public static int execute(ServerCommandSource source) {
 		// Send restart message to console and all players
 		source.getServer().getPlayerManager().broadcast(Text.literal(String.format("[RestartServer] %s", RestartServer.config.restartMessage)).formatted(Formatting.YELLOW), false);
 
