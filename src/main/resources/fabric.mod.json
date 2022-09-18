@@ -9,8 +9,8 @@
   ],
   "contact": {
     "repo": "https://github.com/steveplays28/restart-server",
-    "sources": "https://github.com/Steveplays28/realisticsleep",
-    "issues": "https://github.com/Steveplays28/realisticsleep/issues"
+    "sources": "https://github.com/steveplays28/restart-server",
+    "issues": "https://github.com/steveplays28/restart-server/issues"
   },
   "license": "LGPLv2.1",
   "icon": "assets/restart-server/icon.png",
