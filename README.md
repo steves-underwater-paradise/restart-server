@@ -32,9 +32,6 @@ Everything is fully configurable in the `restart-server.json` config file. You c
 ## Incompatibilities
 - None that I'm aware of right now.
 
-## Recommended mods
-- ModMenu for an in game configuration screen (only for singleplayer/LAN)
-
 ## FAQ
 Q: Forge pls?  
 A: No. I don't have the time to learn another modding framework, however you can port over the mod yourself if you want, the [source code](https://github.com/steveplays28/restart-server) is open.
