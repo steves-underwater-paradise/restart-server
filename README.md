@@ -25,6 +25,11 @@ Everything is fully configurable in the `restart-server.json` config file. You c
 
 ![Command preview](command_preview.png)
 
+## Download  
+- [GitHub releases](https://github.com/Steveplays28/restart-server/releases)
+- [Modrinth](https://modrinth.com/mod/restart-server)
+- [CurseForge](https://www.curseforge.com/minecraft/mc-mods/restart-server)
+
 ## Dependencies
 - [Fabric API](https://modrinth.com/mod/fabric-api)
 - [Cloth Config API](https://modrinth.com/mod/cloth-config)
