@@ -8,9 +8,16 @@
     "Steveplays28"
   ],
   "contact": {
-    "repo": "https://github.com/steveplays28/restart-server",
+    "homepage": "https://modrinth.com/mod/restart-server",
     "sources": "https://github.com/steveplays28/restart-server",
     "issues": "https://github.com/steveplays28/restart-server/issues"
+  },
+  "custom": {
+    "modmenu": {
+      "links": {
+        "modmenu.discord": "https://discord.gg/KbWxgGg"
+      }
+    }
   },
   "license": "LGPLv2.1",
   "icon": "assets/restart-server/icon.png",
@@ -20,9 +27,6 @@
       "io.github.steveplays28.restartserver.RestartServer"
     ]
   },
-  "mixins": [
-    "restart-server.mixins.json"
-  ],
   "depends": {
     "fabricloader": ">=0.14.9",
     "minecraft": [
