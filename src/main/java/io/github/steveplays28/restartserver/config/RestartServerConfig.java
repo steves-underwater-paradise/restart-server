@@ -8,7 +8,9 @@ import me.shedaniel.autoconfig.annotation.Config;
 public class RestartServerConfig implements ConfigData {
 	// Restart script
 	public boolean runRestartScript = true;
-	public String restartScript = "start.sh";
+	public String restartScript = "start.bat";
+	public boolean openInTerminal = true;
+	public String terminalPath = "cmd /c start";
 
 	// Restart message
 	public boolean sendRestartMessage = true;

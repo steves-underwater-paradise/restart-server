@@ -26,8 +26,14 @@ public class RestartCommand {
 		if (RestartServer.config.runRestartScript) {
 			try {
 				// Start restart script process
-				ProcessBuilder process = new ProcessBuilder(RestartServer.config.restartScript);
-				process.start();
+				if (RestartServer.config.openInTerminal) {
+					Runtime.getRuntime().exec(RestartServer.config.terminalPath);
+				} else {
+					ProcessBuilder process = new ProcessBuilder(RestartServer.config.restartScript);
+					process.start();
+				}
+
+				// Send detailed restart message to console
 				source.getServer().sendMessage(Text.literal("[Restart Server] " + String.format("Restarting server using script %s...", RestartServer.config.restartScript)).formatted(Formatting.YELLOW));
 			} catch (IOException e) {
 				e.printStackTrace();
