@@ -1,51 +1,46 @@
-<h1 align="center">
-<img src="docs/icon.png" width="256px" align="center">
+![Restart Server icon](docs/media/icon_128x128.png)
 
-Restart Server
+# Restart Server
 
-[![GitHub](https://img.shields.io/github/license/steveplays28/restart-server?style=flat-square)](https://github.com/steveplays28/restart-server/blob/main/LICENSE)
-![GitHub](https://img.shields.io/github/repo-size/steveplays28/restart-server?style=flat-square)
-[![GitHub](https://img.shields.io/github/forks/steveplays28/restart-server?style=flat-square)](https://github.com/steveplays28/restart-server/network/members)
-[![GitHub](https://img.shields.io/github/issues/steveplays28/restart-server?style=flat-square)](https://github.com/steveplays28/restart-server/issues)
-[![GitHub](https://img.shields.io/github/issues-pr/steveplays28/restart-server?style=flat-square)](https://github.com/steveplays28/restart-server/pulls)
+Adds a restart command to dedicated servers.
 
-![GitHub](https://img.shields.io/badge/environment-server-4caf50?style=flat-square)
-![GitHub](https://img.shields.io/badge/mod%20loader-fabric-d64541?style=flat-square)
-[![Discord](https://img.shields.io/discord/746681304111906867?label=chat%20on%20Discord%20%7C%20Steve%27s%20underwater%20paradise?style=flat-square)](https://discord.gg/KbWxgGg)
-</h1>
+![Restart command screenshot](docs/media/command_preview.png)
 
-<p align="center">
-Minecraft Fabric mod that adds a restart command to dedicated servers.
-</p>
-
----
-So you don't have to run `/stop` and run the start script again. Also supports scheduling restarts at intervals, or when no players have been online for some time.  
+I made this so you don't have to run `/stop` and then run the start script again.  
+Supports scheduling restarts at intervals, or when no players have been online for some time.
 
 Everything is fully configurable in the `restart-server.json` config file. You can reload the mod's config using `/reload`.
 
-![Command preview](command_preview.png)
-
-## Download  
-- [GitHub releases](https://github.com/Steveplays28/restart-server/releases)
-- [Modrinth](https://modrinth.com/mod/restart-server)
-- [CurseForge](https://www.curseforge.com/minecraft/mc-mods/restart-server)
-
 ## Dependencies
-- [Fabric API](https://modrinth.com/mod/fabric-api)
-- [Cloth Config API](https://modrinth.com/mod/cloth-config)
 
-## Incompatibilities
-- None that I'm aware of right now.
+- None (does not require Fabric/Quilt API)!
+
+## Download
+
+[![github](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@2/assets/cozy/available/github_vector.svg)](https://github.com/Steveplays28/restart-server)
+[![modrinth](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@2/assets/cozy/available/modrinth_vector.svg)](https://modrinth.com/mod/restart-server)
+[![curseforge](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@2/assets/cozy/available/curseforge_vector.svg)](https://www.curseforge.com/minecraft/mc-mods/restart-server)
+
+![fabric](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@2/assets/compact/supported/fabric_vector.svg)
+![quilt](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@2/assets/compact/supported/quilt_vector.svg)
+
+Supports Minecraft versions 1.18-1.19.2.  
+Made for the Fabric and Quilt modloaders.  
+Server side only.
 
 ## FAQ
-Q: Forge pls?  
-A: No. I don't have the time to learn another modding framework, however you can port over the mod yourself if you want, the [source code](https://github.com/steveplays28/restart-server) is open.
 
-Q: Will you backport this mod?  
+![forge](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@2/assets/cozy/unsupported/forge_vector.svg)
+
+- Q: Will you be backporting this to lower Minecraft versions?  
 A: No.
 
-Q: Does this mod work in multiplayer?  
-A: Yes.
+- Q: Forge pls?  
+A: Also no.
 
-Q: Does only the server need this mod or does the client need it too?  
+- Q: Does only the server need this mod or does the client need it too?  
 A: Only the server needs this mod. Singleplayer/LAN is not supported.
+
+## License
+
+This project is licensed under LGPLv2.1, see [LICENSE](https://github.com/Steveplays28/restart-server/blob/main/LICENSE).
