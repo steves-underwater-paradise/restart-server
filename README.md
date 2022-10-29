@@ -13,7 +13,8 @@ Everything is fully configurable in the `restart-server.json` config file. You c
 
 ## Dependencies
 
-- None (does not require Fabric/Quilt API)!
+- [Fabric API](https://modrinth.com/mod/fabric-api) or [Quilt Standard Libraries](https://modrinth.com/mod/qsl)
+- [Cloth Config API](https://modrinth.com/mod/cloth-config)
 
 ## Download
 
