@@ -9,6 +9,8 @@ import net.minecraft.util.Formatting;
 
 import java.io.IOException;
 
+import static org.apache.commons.lang3.exception.ExceptionUtils.getStackTrace;
+
 public class RestartCommand {
 	public static final String NAME = "restart";
 	public static final int PERMISSION_LEVEL = 4;
@@ -27,16 +29,16 @@ public class RestartCommand {
 			try {
 				// Start restart script process
 				if (RestartServer.config.openInTerminal) {
-					Runtime.getRuntime().exec(RestartServer.config.terminalPath);
+					Runtime.getRuntime().exec(String.join(" ", RestartServer.config.terminalStartCommand, RestartServer.config.restartScriptPath));
 				} else {
-					ProcessBuilder process = new ProcessBuilder(RestartServer.config.restartScript);
+					ProcessBuilder process = new ProcessBuilder(RestartServer.config.restartScriptPath);
 					process.start();
 				}
 
 				// Send detailed restart message to console
-				source.getServer().sendMessage(Text.literal("[Restart Server] " + String.format("Restarting server using script %s...", RestartServer.config.restartScript)).formatted(Formatting.YELLOW));
+				source.getServer().sendMessage(Text.literal("[Restart Server] " + String.format("Restarting server using script '%s'...", RestartServer.config.restartScriptPath)).formatted(Formatting.YELLOW));
 			} catch (IOException e) {
-				e.printStackTrace();
+				RestartServer.LOGGER.info("[Restart Server] " + getStackTrace(e));
 
 				// Send restart failed message to console and all players
 				source.getServer().getPlayerManager().broadcast(Text.literal("[Restart Server] " + RestartServer.config.restartFailedMessage).formatted(Formatting.RED), RestartServer.config.sendRestartMessageInActionbar);
