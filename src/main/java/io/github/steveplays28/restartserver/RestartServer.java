@@ -6,16 +6,13 @@ import io.github.steveplays28.restartserver.config.RestartServerConfig;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
 import net.fabricmc.api.DedicatedServerModInitializer;
-import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
+import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.text.Text;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
 import java.util.List;
 
 public class RestartServer implements DedicatedServerModInitializer {
@@ -43,7 +40,7 @@ public class RestartServer implements DedicatedServerModInitializer {
 		ServerTickEvents.END_SERVER_TICK.register(new RestartScheduler()::onTick);
 
 		// Register commands
-		CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
+		CommandRegistrationCallback.EVENT.register((dispatcher, dedicated) -> {
 			for (var command : COMMANDS) {
 				dispatcher.register(command);
 			}
