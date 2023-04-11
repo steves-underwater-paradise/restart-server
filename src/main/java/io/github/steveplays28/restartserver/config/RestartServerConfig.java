@@ -14,12 +14,14 @@ public class RestartServerConfig implements ConfigData {
 
 	// Restart message
 	public boolean sendRestartMessage = true;
-	public boolean sendRestartMessageInActionbar = false;
+
 	public String restartMessage = "Restarting server... (eta: ~2m)";
 	public String restartFailedMessage = "Server restart failed.";
 
 	// Automatic restarts
 	public long restartInterval;
+	public String restartWarningMessage = "Restarting server in %d minute(s)...";
+	public int restartWarningCount = 5;
 	public boolean restartIfNoPlayersHaveBeenOnline = false;
 	public long noPlayersWaitTime = 7200;
 }
