@@ -2,7 +2,6 @@ package io.github.steveplays28.restartserver.commands;
 
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import io.github.steveplays28.restartserver.RestartServer;
-import net.minecraft.network.MessageType;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.text.LiteralText;
@@ -22,9 +21,11 @@ public class RestartCommand {
 	}
 
 	public static int execute(ServerCommandSource source) {
-		// Send restart message to console and all players
 		if (RestartServer.config.sendRestartMessage) {
-			source.getServer().getPlayerManager().broadcast(new LiteralText("[Restart Server] " + RestartServer.config.restartMessage).formatted(Formatting.YELLOW), MessageType.SYSTEM, UUID.randomUUID());
+			// Send restart message to console
+			source.getServer().sendSystemMessage(new LiteralText("[Restart Server] " + RestartServer.config.restartMessage).formatted(Formatting.YELLOW), UUID.randomUUID());
+			// Disconnect all players with the restart message
+			source.getServer().getPlayerManager().getPlayerList().forEach(player -> player.networkHandler.disconnect(new LiteralText(RestartServer.config.restartMessage)));
 		}
 
 		if (RestartServer.config.runRestartScript) {
@@ -42,8 +43,8 @@ public class RestartCommand {
 			} catch (IOException e) {
 				RestartServer.LOGGER.info("[Restart Server] " + getStackTrace(e));
 
-				// Send restart failed message to console and all players
-				source.getServer().getPlayerManager().broadcast(new LiteralText("[Restart Server] " + RestartServer.config.restartFailedMessage).formatted(Formatting.RED), MessageType.SYSTEM, UUID.randomUUID());
+				// Send restart failed message to console
+				source.getServer().sendSystemMessage(new LiteralText("[Restart Server] " + RestartServer.config.restartFailedMessage).formatted(Formatting.RED), UUID.randomUUID());
 			}
 		}
 
