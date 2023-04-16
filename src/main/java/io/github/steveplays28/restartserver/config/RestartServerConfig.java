@@ -10,7 +10,8 @@ public class RestartServerConfig implements ConfigData {
 	public boolean runRestartScript = true;
 	public String restartScriptPath = "start.bat";
 	public boolean openInTerminal = true;
-	public String terminalStartCommand = "cmd /c start start.bat";
+	public String terminalStartCommand = "cmd /c start";
+	public boolean stopServer = true;
 
 	// Restart message
 	public boolean sendRestartMessage = true;

@@ -25,29 +25,41 @@ public class RestartCommand {
 			source.getServer().getPlayerManager().broadcast(Text.literal("[Restart Server] " + RestartServer.config.restartMessage).formatted(Formatting.YELLOW), RestartServer.config.sendRestartMessageInActionbar);
 		}
 
+		RestartServer.LOGGER.info("[Restart Server] user.dir: " + System.getProperty("user.dir"));
+
 		if (RestartServer.config.runRestartScript) {
 			try {
 				// Start restart script process
 				if (RestartServer.config.openInTerminal) {
-					Runtime.getRuntime().exec(String.join(" ", RestartServer.config.terminalStartCommand, RestartServer.config.restartScriptPath));
+					var process = Runtime.getRuntime().exec(String.join(" ", RestartServer.config.terminalStartCommand, RestartServer.config.restartScriptPath));
 				} else {
-					ProcessBuilder process = new ProcessBuilder(RestartServer.config.restartScriptPath);
-					process.start();
+					Runtime.getRuntime().exec(RestartServer.config.restartScriptPath);
 				}
 
 				// Send detailed restart message to console
 				source.getServer().sendMessage(Text.literal("[Restart Server] " + String.format("Restarting server using script '%s'...", RestartServer.config.restartScriptPath)).formatted(Formatting.YELLOW));
+
+				// Stop server
+				if (RestartServer.config.stopServer) {
+					source.getServer().stop(false);
+				}
+
+				return 0;
 			} catch (IOException e) {
 				RestartServer.LOGGER.info("[Restart Server] " + getStackTrace(e));
 
 				// Send restart failed message to console and all players
 				source.getServer().getPlayerManager().broadcast(Text.literal("[Restart Server] " + RestartServer.config.restartFailedMessage).formatted(Formatting.RED), RestartServer.config.sendRestartMessageInActionbar);
+
+				return 1;
 			}
+		} else {
+			// Stop server
+			if (RestartServer.config.stopServer) {
+				source.getServer().stop(false);
+			}
+
+			return 0;
 		}
-
-		// Stop server
-		source.getServer().stop(false);
-
-		return 1;
 	}
 }
