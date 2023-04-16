@@ -31,7 +31,7 @@ public class RestartCommand {
 			try {
 				// Start restart script process
 				if (RestartServer.config.openInTerminal) {
-					var process = Runtime.getRuntime().exec(String.join(" ", RestartServer.config.terminalStartCommand, RestartServer.config.restartScriptPath));
+					Runtime.getRuntime().exec(String.join(" ", RestartServer.config.terminalStartCommand, RestartServer.config.restartScriptPath));
 				} else {
 					Runtime.getRuntime().exec(RestartServer.config.restartScriptPath);
 				}

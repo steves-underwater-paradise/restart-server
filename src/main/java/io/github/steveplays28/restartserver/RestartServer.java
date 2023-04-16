@@ -4,7 +4,7 @@ import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import io.github.steveplays28.restartserver.commands.RestartCommand;
 import io.github.steveplays28.restartserver.config.RestartServerConfig;
 import me.shedaniel.autoconfig.AutoConfig;
-import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
+import me.shedaniel.autoconfig.serializer.JanksonConfigSerializer;
 import net.fabricmc.api.DedicatedServerModInitializer;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
@@ -26,7 +26,7 @@ public class RestartServer implements DedicatedServerModInitializer {
 		LOGGER.info("[Restart Server] Loading!");
 
 		// Register Auto Config
-		AutoConfig.register(RestartServerConfig.class, GsonConfigSerializer::new);
+		AutoConfig.register(RestartServerConfig.class, JanksonConfigSerializer::new);
 		config = AutoConfig.getConfigHolder(RestartServerConfig.class).getConfig();
 
 		// Listen for when the server is reloading (i.e. /reload), and reload the config
@@ -34,6 +34,7 @@ public class RestartServer implements DedicatedServerModInitializer {
 			LOGGER.info("[Restart Server] Reloading config!");
 			AutoConfig.getConfigHolder(RestartServerConfig.class).load();
 			config = AutoConfig.getConfigHolder(RestartServerConfig.class).getConfig();
+			LOGGER.info("[Restart Server] Reloaded config!");
 		});
 
 		// Register events
