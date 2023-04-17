@@ -43,9 +43,7 @@ public class RestartScheduler {
 					lastWarning = minutesUntilRestart;
 					if (minutesUntilRestart > RestartServer.config.restartWarningCount) return;
 					server.getPlayerManager().broadcast(
-							new LiteralText(
-                                    String.format(RestartServer.config.restartWarningMessage, minutesUntilRestart)
-							).formatted(Formatting.YELLOW),
+							new LiteralText(String.format(RestartServer.config.restartWarningMessage, minutesUntilRestart)).formatted(Formatting.YELLOW),
 							MessageType.SYSTEM,
 							UUID.randomUUID()
 					);
