@@ -32,6 +32,10 @@ public class RestartServerConfig implements ConfigData {
 	// Automatic restarts
 	@Comment("The interval in which the server will restart.\nSet to 0 or less to disable.\nUNIT: seconds\nDEFAULT: 0")
 	public long restartInterval = 0;
+	@Comment("The warning message before the server restart.\nDEFAULT: Restarting server in %d minute(s)...")
+	public String restartWarningMessage = "Restarting server in %d minute(s)...";
+	@Comment("The amount of times to show the warning message, one per minute.\nSet to 0 or less to disable.\nDEFAULT: 5")
+	public int restartWarningCount = 5;
 	@Comment("Set to true to only restart if no players have been online for a specified amount of time.\nDEFAULT: false")
 	public boolean restartIfNoPlayersHaveBeenOnline = false;
 	@Comment("The specified amount of time to wait after all players have disconnected to restart.\nUNIT: seconds\nDEFAULT: 7200")

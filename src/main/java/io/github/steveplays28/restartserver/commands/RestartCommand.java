@@ -20,9 +20,11 @@ public class RestartCommand {
 	}
 
 	public static int execute(ServerCommandSource source) {
-		// Send restart message to console and all players
 		if (RestartServer.config.sendRestartMessage) {
-			source.getServer().getPlayerManager().broadcast(Text.literal("[Restart Server] " + RestartServer.config.restartMessage).formatted(Formatting.YELLOW), RestartServer.config.sendRestartMessageInActionbar);
+			// Send restart message to console
+			source.getServer().sendMessage(Text.literal("[Restart Server] " + RestartServer.config.restartMessage).formatted(Formatting.YELLOW));
+			// Disconnect all players with the restart message
+			source.getServer().getPlayerManager().getPlayerList().forEach(player -> player.networkHandler.disconnect(Text.literal(RestartServer.config.restartMessage)));
 		}
 
 		RestartServer.LOGGER.info("[Restart Server] user.dir: " + System.getProperty("user.dir"));
