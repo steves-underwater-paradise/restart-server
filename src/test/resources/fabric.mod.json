@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "id": "restart-server-test",
+  "version": "${version}",
+  "name": "Restart Server Test",
+  "description": "TEST - Adds a restart command to dedicated servers.",
+  "authors": [
+    "Steveplays28"
+  ],
+  "contact": {
+    "homepage": "https://modrinth.com/mod/restart-server",
+    "sources": "https://github.com/steveplays28/restart-server",
+    "issues": "https://github.com/steveplays28/restart-server/issues"
+  },
+  "custom": {
+    "modmenu": {
+      "links": {
+        "modmenu.discord": "https://discord.gg/KbWxgGg"
+      }
+    }
+  },
+  "license": "LGPLv2.1",
+  "icon": "assets/restart-server/icon.png",
+  "environment": "server",
+  "entrypoints": {
+    "fabric-gametest": [
+      "io.github.steveplays28.restartserver.gametest.EmptyTest"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.14.9",
+    "minecraft": "1.19.x",
+    "fabric": ">=0.48.0",
+    "cloth-config": ">=7.0.69"
+  }
+}
