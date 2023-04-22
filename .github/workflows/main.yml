@@ -28,6 +28,9 @@ jobs:
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v2
 
+      - name: Change Gradle wrapper permissions
+        run: chmod +x ./gradlew
+
       - name: Execute Gradle build
         run: ./gradlew runGameTest
 
