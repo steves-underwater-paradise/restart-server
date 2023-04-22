@@ -3,10 +3,12 @@ name: Java CD
 on:
   release:
     types: [published]
+  workflow_dispatch:
 
 jobs:
   publish:
     name: Publish mod
+    runs-on: ubuntu-latest
 
     steps:
       # https://github.com/marketplace/actions/publish-minecraft-mods
