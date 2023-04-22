@@ -10,7 +10,7 @@ public class RestartServerConfig implements ConfigData {
 	// Restart script
 	@Comment("Set to true to run an executable restart script (such as .bat files).\nDEFAULT: true")
 	public boolean runRestartScript = true;
-	@Comment("The executable restart script that should run.\nDEFAULT: start.bat")
+	@Comment("The executable restart script that should run.\nDIRECTORY: if using relative paths, starts at the server root directory (/)\nDEFAULT: start.bat")
 	public String restartScriptPath = "start.bat";
 	@Comment("Set to true to run the executable restart script in a new terminal window.\nDEFAULT: true")
 	public boolean openInTerminal = true;
