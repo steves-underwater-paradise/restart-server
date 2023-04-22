@@ -6,7 +6,7 @@ import io.github.steveplays28.restartserver.config.RestartServerConfig;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.serializer.JanksonConfigSerializer;
 import net.fabricmc.api.DedicatedServerModInitializer;
-import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
+import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.minecraft.server.command.ServerCommandSource;
@@ -41,7 +41,7 @@ public class RestartServer implements DedicatedServerModInitializer {
 		ServerTickEvents.END_SERVER_TICK.register(new RestartScheduler()::onTick);
 
 		// Register commands
-		CommandRegistrationCallback.EVENT.register((dispatcher, dedicated) -> {
+		CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
 			for (var command : COMMANDS) {
 				dispatcher.register(command);
 			}

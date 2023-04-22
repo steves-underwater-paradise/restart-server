@@ -1,13 +1,11 @@
 package io.github.steveplays28.restartserver;
 
 import io.github.steveplays28.restartserver.commands.RestartCommand;
-import net.minecraft.network.MessageType;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 
 import java.time.Instant;
-import java.util.UUID;
 
 public class RestartScheduler {
 	public boolean isRestartScheduled = false;
@@ -36,9 +34,9 @@ public class RestartScheduler {
 				// Restart server
 				RestartCommand.execute(server.getCommandSource());
 			} else {
-				long difference = nextRestart-now;
-				if (difference%60 != 0) return;
-				int minutesUntilRestart = (int) difference/60;
+				long difference = nextRestart - now;
+				if (difference % 60 != 0) return;
+				int minutesUntilRestart = (int) difference / 60;
 				if (minutesUntilRestart != lastWarning) {
 					lastWarning = minutesUntilRestart;
 					if (minutesUntilRestart > RestartServer.config.restartWarningCount) return;
