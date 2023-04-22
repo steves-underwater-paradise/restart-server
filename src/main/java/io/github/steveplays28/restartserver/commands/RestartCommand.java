@@ -6,48 +6,60 @@ import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
-import org.apache.commons.lang3.SystemUtils;
 
 import java.io.IOException;
+
+import static org.apache.commons.lang3.exception.ExceptionUtils.getStackTrace;
 
 public class RestartCommand {
 	public static final String NAME = "restart";
 	public static final int PERMISSION_LEVEL = 4;
-
-	public static String restartScript;
 
 	public static LiteralArgumentBuilder<ServerCommandSource> register() {
 		return CommandManager.literal(NAME).executes(ctx -> execute(ctx.getSource())).requires((ctx) -> ctx.hasPermissionLevel(PERMISSION_LEVEL));
 	}
 
 	public static int execute(ServerCommandSource source) {
-		// Send restart message to console and all players
-		source.getServer().getPlayerManager().broadcast(Text.literal(String.format("[RestartServer] %s", RestartServer.config.restartMessage)).formatted(Formatting.YELLOW), false);
-
-		try {
-			// Determine OS
-			if (SystemUtils.IS_OS_LINUX) {
-				restartScript = RestartServer.config.restartScriptLinux;
-			} else if (SystemUtils.IS_OS_MAC || SystemUtils.IS_OS_MAC_OSX) {
-				restartScript = RestartServer.config.restartScriptMacOS;
-			} else if (SystemUtils.IS_OS_WINDOWS) {
-				restartScript = RestartServer.config.restartScriptWindows;
-			}
-
-			// Start server restart script process
-			ProcessBuilder process = new ProcessBuilder(restartScript);
-			process.start();
-			source.getServer().sendMessage(Text.literal(String.format("[RestartServer] Restarting server using script %s...", restartScript)).formatted(Formatting.YELLOW));
-		} catch (IOException e) {
-			e.printStackTrace();
-
-			// Send restart failed message to console and all players
-			source.getServer().getPlayerManager().broadcast(Text.literal("[RestartServer] Server restart failed.").formatted(Formatting.RED), false);
+		if (RestartServer.config.sendRestartMessage) {
+			// Send restart message to console
+			source.getServer().sendMessage(Text.literal("[Restart Server] " + RestartServer.config.restartMessage).formatted(Formatting.YELLOW));
+			// Disconnect all players with the restart message
+			source.getServer().getPlayerManager().getPlayerList().forEach(player -> player.networkHandler.disconnect(Text.literal(RestartServer.config.restartMessage)));
 		}
 
-		// Stop server
-		source.getServer().stop(false);
+		if (RestartServer.config.runRestartScript) {
+			try {
+				// Start restart script process
+				if (RestartServer.config.openInTerminal) {
+					Runtime.getRuntime().exec(String.join(" ", RestartServer.config.terminalStartCommand, RestartServer.config.restartScriptPath));
+				} else {
+					Runtime.getRuntime().exec(RestartServer.config.restartScriptPath);
+				}
 
-		return 1;
+				// Send detailed restart message to console
+				source.getServer().sendMessage(Text.literal("[Restart Server] " + String.format("Restarting server using script '%s'...", RestartServer.config.restartScriptPath)).formatted(Formatting.YELLOW));
+
+				// Stop server
+				if (RestartServer.config.stopServer) {
+					source.getServer().stop(false);
+				}
+
+				return 0;
+			} catch (IOException e) {
+				RestartServer.LOGGER.info("[Restart Server] " + getStackTrace(e));
+
+				// Send restart failed message to console and all players
+				source.getServer().getPlayerManager().broadcast(Text.literal("[Restart Server] " + RestartServer.config.restartFailedMessage).formatted(Formatting.RED), RestartServer.config.sendRestartMessageInActionbar);
+
+				return 1;
+			}
+		} else {
+			// Stop server
+			if (RestartServer.config.stopServer) {
+				source.getServer().stop(false);
+			}
+
+			return 0;
+		}
 	}
 }

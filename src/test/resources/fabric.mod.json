@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
-  "id": "restart-server",
+  "id": "restart-server-test",
   "version": "${version}",
-  "name": "Restart Server",
-  "description": "Adds a restart command to dedicated servers.",
+  "name": "Restart Server Test",
+  "description": "TEST - Adds a restart command to dedicated servers.",
   "authors": [
     "Steveplays28"
   ],
@@ -23,8 +23,8 @@
   "icon": "assets/restart-server/icon.png",
   "environment": "server",
   "entrypoints": {
-    "server": [
-      "io.github.steveplays28.restartserver.RestartServer"
+    "fabric-gametest": [
+      "io.github.steveplays28.restartserver.gametest.GameTests"
     ]
   },
   "depends": {

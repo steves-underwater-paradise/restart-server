@@ -1,0 +1,21 @@
+name: Java CD
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  publish:
+    name: Publish mod
+
+    steps:
+      # https://github.com/marketplace/actions/publish-minecraft-mods
+      - uses: Kir-Antipov/mc-publish@v3.2
+        with:
+          # Modrinth
+          modrinth-id: ${{ env.MODRINTH_ID }}
+          modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
+
+          # CurseForge
+          curseforge-id: ${{ env.CURSEFORGE_ID }}
+          curseforge-token: ${{ secrets.CURSEFORGE_TOKEN }}
