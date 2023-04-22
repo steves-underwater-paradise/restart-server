@@ -27,8 +27,6 @@ public class RestartCommand {
 			source.getServer().getPlayerManager().getPlayerList().forEach(player -> player.networkHandler.disconnect(Text.literal(RestartServer.config.restartMessage)));
 		}
 
-		RestartServer.LOGGER.info("[Restart Server] user.dir: " + System.getProperty("user.dir"));
-
 		if (RestartServer.config.runRestartScript) {
 			try {
 				// Start restart script process
