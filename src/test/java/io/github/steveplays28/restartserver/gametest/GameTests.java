@@ -13,7 +13,7 @@ import net.minecraft.util.math.Vec2f;
 import net.minecraft.util.math.Vec3d;
 
 public class GameTests {
-	@GameTest(templateName = FabricGameTest.EMPTY_STRUCTURE, batchId = "test_restart_command")
+	@GameTest(structureName = FabricGameTest.EMPTY_STRUCTURE, batchId = "test_restart_command")
 	public void testRestartCommand(TestContext context) {
 		var world = context.getWorld();
 		var server = context.getWorld().getServer();
