@@ -37,3 +37,9 @@ jobs:
 
       - name: Execute Gradle build
         run: ./gradlew build
+
+      - name: Upload Gradle artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: my-artifact
+          path: build/libs/
