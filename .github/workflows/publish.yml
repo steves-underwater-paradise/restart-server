@@ -9,12 +9,13 @@ jobs:
     name: Publish mod
 
     steps:
+      # https://github.com/marketplace/actions/publish-minecraft-mods
       - uses: Kir-Antipov/mc-publish@v3.2
         with:
           # Modrinth
-          modrinth-id: zG0Bb7gw
+          modrinth-id: ${{ env.MODRINTH_ID }}
           modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
 
           # CurseForge
-          curseforge-id: 677580
+          curseforge-id: ${{ env.CURSEFORGE_ID }}
           curseforge-token: ${{ secrets.CURSEFORGE_TOKEN }}
