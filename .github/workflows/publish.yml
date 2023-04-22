@@ -1,6 +1,8 @@
 name: Java CD
 
-on: workflow_dispatch
+on:
+  release:
+    types: [published]
 
 jobs:
   publish:
@@ -9,13 +11,10 @@ jobs:
     steps:
       - uses: Kir-Antipov/mc-publish@v3.2
         with:
-          # GitHub releases
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-
           # Modrinth
           modrinth-id: zG0Bb7gw
           modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
 
           # CurseForge
-          curseforge-id: 394468
+          curseforge-id: 677580
           curseforge-token: ${{ secrets.CURSEFORGE_TOKEN }}
