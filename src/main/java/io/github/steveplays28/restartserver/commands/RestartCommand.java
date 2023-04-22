@@ -51,13 +51,7 @@ public class RestartCommand {
 				RestartServer.LOGGER.info("[Restart Server] " + getStackTrace(e));
 
 				// Send restart failed message to console and all players
-				source.getServer().getPlayerManager().broadcast(
-						new LiteralText("[Restart Server] " + RestartServer.config.restartFailedMessage).formatted(Formatting.RED),
-						RestartServer.config.sendRestartMessageInActionbar
-								? MessageType.SYSTEM
-								: MessageType.GAME_INFO,
-						UUID.randomUUID()
-				);
+				source.getServer().getPlayerManager().broadcast(new LiteralText("[Restart Server] " + RestartServer.config.restartFailedMessage).formatted(Formatting.RED), RestartServer.config.sendRestartMessageInActionbar ? MessageType.SYSTEM : MessageType.GAME_INFO, UUID.randomUUID());
 
 				return 1;
 			}

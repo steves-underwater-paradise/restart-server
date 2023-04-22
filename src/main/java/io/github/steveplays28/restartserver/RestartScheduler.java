@@ -1,11 +1,13 @@
 package io.github.steveplays28.restartserver;
 
 import io.github.steveplays28.restartserver.commands.RestartCommand;
+import net.minecraft.network.MessageType;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.text.Text;
+import net.minecraft.text.LiteralText;
 import net.minecraft.util.Formatting;
 
 import java.time.Instant;
+import java.util.UUID;
 
 public class RestartScheduler {
 	public boolean isRestartScheduled = false;
@@ -40,11 +42,7 @@ public class RestartScheduler {
 				if (minutesUntilRestart != lastWarning) {
 					lastWarning = minutesUntilRestart;
 					if (minutesUntilRestart > RestartServer.config.restartWarningCount) return;
-					server.getPlayerManager().broadcast(
-							new LiteralText(String.format(RestartServer.config.restartWarningMessage, minutesUntilRestart)).formatted(Formatting.YELLOW),
-							MessageType.SYSTEM,
-							UUID.randomUUID()
-					);
+					server.getPlayerManager().broadcast(new LiteralText(String.format(RestartServer.config.restartWarningMessage, minutesUntilRestart)).formatted(Formatting.YELLOW), MessageType.SYSTEM, UUID.randomUUID());
 				}
 			}
 		} else {
