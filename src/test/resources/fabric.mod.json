@@ -24,7 +24,7 @@
   "environment": "server",
   "entrypoints": {
     "fabric-gametest": [
-      "io.github.steveplays28.restartserver.gametest.EmptyTest"
+      "io.github.steveplays28.restartserver.gametest.GameTests"
     ]
   },
   "depends": {
