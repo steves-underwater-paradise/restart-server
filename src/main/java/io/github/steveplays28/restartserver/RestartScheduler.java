@@ -67,7 +67,7 @@ public class RestartScheduler {
 				isRestartIfNoPlayersHaveBeenOnlineScheduled = false;
 			}
 
-			if (nextRestartIfNoPlayersHaveBeenOnline <= now) {
+			if (nextRestartIfNoPlayersHaveBeenOnline <= now && isRestartIfNoPlayersHaveBeenOnlineScheduled) {
 				// Restart server
 				RestartCommand.execute(server.getCommandSource());
 			}
