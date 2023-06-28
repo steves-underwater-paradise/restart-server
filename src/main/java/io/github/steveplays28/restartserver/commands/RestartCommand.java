@@ -2,6 +2,7 @@ package io.github.steveplays28.restartserver.commands;
 
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import io.github.steveplays28.restartserver.RestartServer;
+import me.lucko.fabric.api.permissions.v0.Permissions;
 import net.minecraft.network.MessageType;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
@@ -18,7 +19,7 @@ public class RestartCommand {
 	public static final int PERMISSION_LEVEL = 4;
 
 	public static LiteralArgumentBuilder<ServerCommandSource> register() {
-		return CommandManager.literal(NAME).executes(ctx -> execute(ctx.getSource())).requires((ctx) -> ctx.hasPermissionLevel(PERMISSION_LEVEL));
+		return CommandManager.literal(NAME).executes(ctx -> execute(ctx.getSource())).requires((ctx) -> Permissions.check(ctx, "restart_server.commands."+NAME, PERMISSION_LEVEL));
 	}
 
 	public static int execute(ServerCommandSource source) {
