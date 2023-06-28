@@ -14,6 +14,7 @@ repositories {
     // for more information about repositories.
 
     maven { url "https://maven.shedaniel.me/" }
+    maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
 }
 
 dependencies {
@@ -29,6 +30,9 @@ dependencies {
     modApi("me.shedaniel.cloth:cloth-config-fabric:${project.cloth_config_version}") {
         exclude(group: "net.fabricmc.fabric-api")
     }
+
+    // Fabric Permissions API
+    include(modImplementation('me.lucko:fabric-permissions-api:0.2-SNAPSHOT'))
 }
 
 processResources {
