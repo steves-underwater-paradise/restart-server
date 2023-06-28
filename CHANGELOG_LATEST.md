@@ -1,3 +1,3 @@
-### Fixed
+### Added
 
-- Player join causes server to instantly restart
+- Compatibility for the Fabric Permissions API
