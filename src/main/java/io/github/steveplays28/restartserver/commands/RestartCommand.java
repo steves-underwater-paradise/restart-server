@@ -17,7 +17,7 @@ public class RestartCommand {
 	public static final int PERMISSION_LEVEL = 4;
 
 	public static LiteralArgumentBuilder<ServerCommandSource> register() {
-		return CommandManager.literal(NAME).executes(ctx -> execute(ctx.getSource())).requires((ctx) -> Permissions.check(ctx, "restart_server.commands."+NAME, PERMISSION_LEVEL));
+		return CommandManager.literal(NAME).executes(ctx -> execute(ctx.getSource())).requires((ctx) -> Permissions.check(ctx, "restart_server.commands." + NAME, PERMISSION_LEVEL));
 	}
 
 	public static int execute(ServerCommandSource source) {
@@ -29,38 +29,33 @@ public class RestartCommand {
 		}
 
 		if (RestartServer.config.runRestartScript) {
+            String[] commandArray = RestartServer.config.openInTerminal ?
+                    new String[]{RestartServer.config.terminalStartCommand, RestartServer.config.restartScriptPath} :
+                    new String[]{RestartServer.config.restartScriptPath};
+
 			try {
-				// Start restart script process
-				if (RestartServer.config.openInTerminal) {
-					Runtime.getRuntime().exec(String.join(" ", RestartServer.config.terminalStartCommand, RestartServer.config.restartScriptPath));
-				} else {
-					Runtime.getRuntime().exec(RestartServer.config.restartScriptPath);
-				}
+                // execute restart script
+                Runtime.getRuntime().exec(commandArray);
 
 				// Send detailed restart message to console
 				source.getServer().sendMessage(Text.literal("[Restart Server] " + String.format("Restarting server using script '%s'...", RestartServer.config.restartScriptPath)).formatted(Formatting.YELLOW));
 
-				// Stop server
-				if (RestartServer.config.stopServer) {
-					source.getServer().stop(false);
-				}
-
-				return 0;
 			} catch (IOException e) {
-				RestartServer.LOGGER.info("[Restart Server] " + getStackTrace(e));
+                RestartServer.LOGGER.info("[Restart Server] {}", getStackTrace(e));
 
 				// Send restart failed message to console and all players
 				source.getServer().getPlayerManager().broadcast(Text.literal("[Restart Server] " + RestartServer.config.restartFailedMessage).formatted(Formatting.RED), RestartServer.config.sendRestartMessageInActionbar);
 
 				return 1;
-			}
-		} else {
-			// Stop server
-			if (RestartServer.config.stopServer) {
-				source.getServer().stop(false);
-			}
+			} catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
+        // Stop server
+        if (RestartServer.config.stopServer) {
+            source.getServer().stop(false);
+        }
 
-			return 0;
-		}
+        return 0;
 	}
 }

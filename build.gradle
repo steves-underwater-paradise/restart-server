@@ -1,10 +1,18 @@
 plugins {
-    id 'fabric-loom' version '1.0-SNAPSHOT'
+    id 'fabric-loom' version "${loom_version}"
     id 'maven-publish'
 }
 
 version = "${project.mod_version}+mc${project.supported_minecraft_version}"
 group = project.maven_group
+
+base {
+    archivesName = project.archives_base_name
+}
+
+compileJava {
+    options.compilerArgs += ['-Xlint:deprecation']
+}
 
 repositories {
     // Add repositories to retrieve artifacts from in here.
@@ -13,8 +21,8 @@ repositories {
     // See https://docs.gradle.org/current/userguide/declaring_repositories.html
     // for more information about repositories.
 
-    maven { url "https://maven.shedaniel.me/" }
-    maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
+    maven { url = "https://maven.shedaniel.me/" }
+    maven { url = 'https://oss.sonatype.org/content/repositories/snapshots' }
 }
 
 dependencies {
@@ -32,19 +40,19 @@ dependencies {
     }
 
     // Fabric Permissions API
-    include(modImplementation('me.lucko:fabric-permissions-api:0.2-SNAPSHOT'))
+    include(modImplementation("me.lucko:fabric-permissions-api:${project.fabric_permissions_api}"))
 }
 
 processResources {
     inputs.property "version", project.version
-    filteringCharset "UTF-8"
+    filteringCharset = "UTF-8"
 
     filesMatching("fabric.mod.json") {
-        expand "version": project.version
+        expand "version": inputs.properties.version
     }
 }
 
-def targetJavaVersion = 17
+def targetJavaVersion = 21
 tasks.withType(JavaCompile).configureEach {
     // ensure that the encoding is set to UTF-8, no matter what the system default is
     // this fixes some edge cases with special characters not displaying correctly
@@ -61,7 +69,6 @@ java {
     if (JavaVersion.current() < javaVersion) {
         toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion)
     }
-    archivesBaseName = project.archives_base_name
     // Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
     // if it is present.
     // If you remove this line, sources will not be generated.
@@ -70,7 +77,7 @@ java {
 
 jar {
     from("LICENSE") {
-        rename { "${it}_${project.archivesBaseName}" }
+        rename { "${it}_${base.archivesName}" }
     }
 }
 
@@ -102,7 +109,7 @@ loom {
 
             // Enable the gameTest runner
             vmArg "-Dfabric-api.gametest"
-            vmArg "-Dfabric-api.gametest.report-file=${project.buildDir}/junit.xml"
+            vmArg "-Dfabric-api.gametest.report-file=${project.layout.buildDirectory}/junit.xml"
             runDir "build/gametest"
         }
     }
