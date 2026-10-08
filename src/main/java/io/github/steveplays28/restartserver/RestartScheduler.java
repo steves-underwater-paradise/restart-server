@@ -2,8 +2,8 @@ package io.github.steveplays28.restartserver;
 
 import io.github.steveplays28.restartserver.commands.RestartCommand;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
 
 import java.time.Instant;
 
@@ -32,7 +32,7 @@ public class RestartScheduler {
 		if (isRestartScheduled) {
 			if (nextRestart <= now) {
 				// Restart server
-				RestartCommand.execute(server.getCommandSource());
+				RestartCommand.execute(server.createCommandSourceStack());
 			} else {
 				long difference = nextRestart - now;
 				if (difference % 60 != 0) return;
@@ -40,7 +40,7 @@ public class RestartScheduler {
 				if (minutesUntilRestart != lastWarning) {
 					lastWarning = minutesUntilRestart;
 					if (minutesUntilRestart > RestartServer.config.restartWarningCount) return;
-					server.getPlayerManager().broadcast(Text.literal(String.format(RestartServer.config.restartWarningMessage, minutesUntilRestart)).formatted(Formatting.YELLOW), false);
+					server.getPlayerList().broadcastSystemMessage(Component.literal(String.format(RestartServer.config.restartWarningMessage, minutesUntilRestart)).withStyle(ChatFormatting.YELLOW), false);
 				}
 			}
 		} else {
@@ -59,7 +59,7 @@ public class RestartScheduler {
 		long now = Instant.now().getEpochSecond();
 
 		if (isRestartIfNoPlayersHaveBeenOnlineScheduled) {
-			if (server.getCurrentPlayerCount() > 0) {
+			if (server.getPlayerCount() > 0) {
 				// Unschedule no players restart
 				nextRestartIfNoPlayersHaveBeenOnline = -1;
 				isRestartIfNoPlayersHaveBeenOnlineScheduled = false;
@@ -67,10 +67,10 @@ public class RestartScheduler {
 
 			if (nextRestartIfNoPlayersHaveBeenOnline <= now && isRestartIfNoPlayersHaveBeenOnlineScheduled) {
 				// Restart server
-				RestartCommand.execute(server.getCommandSource());
+				RestartCommand.execute(server.createCommandSourceStack());
 			}
 		} else {
-			if (server.getCurrentPlayerCount() <= 0) {
+			if (server.getPlayerCount() <= 0) {
 				// Schedule no players restart
 				nextRestartIfNoPlayersHaveBeenOnline = now + RestartServer.config.noPlayersWaitTime;
 				isRestartIfNoPlayersHaveBeenOnlineScheduled = true;

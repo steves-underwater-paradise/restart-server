@@ -9,7 +9,7 @@ import net.fabricmc.api.DedicatedServerModInitializer;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
-import net.minecraft.server.command.ServerCommandSource;
+import net.minecraft.commands.CommandSourceStack;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,7 +19,7 @@ public class RestartServer implements DedicatedServerModInitializer {
 	public static final String MOD_ID = "restart-server";
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 	public static RestartServerConfig config;
-	public static final List<LiteralArgumentBuilder<ServerCommandSource>> COMMANDS = List.of(RestartCommand.register());
+	public static final List<LiteralArgumentBuilder<CommandSourceStack>> COMMANDS = List.of(RestartCommand.register());
 
 	@Override
 	public void onInitializeServer() {

@@ -2,28 +2,34 @@ package io.github.steveplays28.restartserver.gametest;
 
 import io.github.steveplays28.restartserver.RestartServer;
 import io.github.steveplays28.restartserver.commands.RestartCommand;
-import net.fabricmc.fabric.api.gametest.v1.FabricGameTest;
-import net.minecraft.entity.mob.ZombieEntity;
-import net.minecraft.server.command.CommandOutput;
-import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.test.GameTest;
-import net.minecraft.test.TestContext;
-import net.minecraft.text.Text;
-import net.minecraft.util.math.Vec2f;
-import net.minecraft.util.math.Vec3d;
+import net.fabricmc.fabric.api.gametest.v1.GameTest;
+import net.minecraft.gametest.framework.GameTestHelper;
+
+import java.util.Arrays;
 
 public class GameTests {
-	@GameTest(templateName = FabricGameTest.EMPTY_STRUCTURE, batchId = "test_restart_command")
-	public void testRestartCommand(TestContext context) {
-		var world = context.getWorld();
-		var server = context.getWorld().getServer();
+	@GameTest
+	public void testRestartCommand(GameTestHelper helper) {
+		var server = helper.getLevel().getServer();
 
 		RestartServer.config.stopServer = false;
 		RestartServer.config.runRestartScript = false;
 
-		var source = new ServerCommandSource(CommandOutput.DUMMY, new Vec3d(0, 0, 0), new Vec2f(0, 0), world, 0, "yes", Text.of("yes"), server, new ZombieEntity(world));
-		RestartCommand.execute(source);
+		helper.assertTrue(RestartCommand.execute(server.createCommandSourceStack()) == 0, "Restart command should succeed");
+		helper.succeed();
+	}
 
-		context.complete();
+	@GameTest
+	public void testRestartScriptCommand(GameTestHelper helper) {
+		RestartServer.config.restartScriptPath = "start.sh";
+
+		RestartServer.config.openInTerminal = false;
+		helper.assertTrue(Arrays.equals(RestartCommand.getRestartScriptCommand(), new String[]{"start.sh"}), "script should run when not opening a terminal");
+
+		RestartServer.config.openInTerminal = true;
+		RestartServer.config.terminalStartCommand = "cmd /c start";
+		helper.assertTrue(Arrays.equals(RestartCommand.getRestartScriptCommand(), new String[]{"cmd", "/c", "start", "start.sh"}), "Terminal start command should be split into arguments");
+
+		helper.succeed();
 	}
 }
